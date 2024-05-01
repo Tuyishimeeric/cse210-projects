@@ -7,12 +7,12 @@ class Program
         //Console.WriteLine("Hello Prep5 World!");
         DisplayWelcomeMessage();
 
-        string userName = PromptUserName();
-        int userNumber = PromptUserNumber();
+        string izina = Promptizina();
+        int umubare = Promptumubare();
 
-        int squaredNumber = SquareNumber(userNumber);
+        int squaredNumber = SquareNumber(umubare);
 
-        DisplayResult(userName, squaredNumber);
+        DisplayResult(izina, squaredNumber);
     }
 
     static void DisplayWelcomeMessage()
@@ -20,7 +20,7 @@ class Program
         Console.WriteLine("Welcome to the program!");
     }
 
-    static string PromptUserName()
+    static string Promptizina()
     {
         Console.Write("Please enter your name: ");
         string name = Console.ReadLine();
@@ -28,7 +28,7 @@ class Program
         return name;
     }
 
-    static int PromptUserNumber()
+    static int Promptumubare()
     {
         Console.Write("Please enter your favorite number: ");
         int number = int.Parse(Console.ReadLine());
