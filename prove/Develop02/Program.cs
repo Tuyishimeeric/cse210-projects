@@ -42,7 +42,13 @@ class Journal
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] parts = line.Split('|');
-                    entries.Add(new Entry { Prompt = parts[0], Response = parts[1], Date = DateTime.Parse(parts[2]) });
+                    if (parts.Length >= 3)
+                    {
+                        string prompt = parts[0];
+                        string response = parts[1];
+                        DateTime date = DateTime.Parse(parts[2]);
+                        entries.Add(new Entry(prompt, response, date));
+                    }
                 }
             }
             Console.WriteLine("Journal loaded from file.");
@@ -71,29 +77,16 @@ class Entry
         Date = DateTime.Now;
     }
 
-    public Entry() { }
+    public Entry(string prompt, string response, DateTime date)
+    {
+        Prompt = prompt;
+        Response = response;
+        Date = date;
+    }
 
     public override string ToString()
     {
         return $"{Date.ToString("MM/dd/yyyy")} - {Prompt}: {Response}";
-    }
-}
-
-class PromptGenerator
-{
-    private string[] prompts = {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
-    };
-
-    public string GenerateRandomPrompt()
-    {
-        Random rand = new Random();
-        int index = rand.Next(prompts.Length);
-        return prompts[index];
     }
 }
 
@@ -102,17 +95,12 @@ class Program
     static void Main(string[] args)
     {
         Journal journal = new Journal();
-        PromptGenerator promptGenerator = new PromptGenerator();
-
-        Console.WriteLine("Random Prompt:");
-        string randomPrompt = promptGenerator.GenerateRandomPrompt();
-        Console.WriteLine(randomPrompt);
 
         // Add an entry
-        journal.AddEntry(randomPrompt, "Sample response");
+        journal.AddEntry("Sample Prompt", "Sample Response");
 
         // Display all entries
-        Console.WriteLine("\nAll Entries:");
+        Console.WriteLine("All Entries:");
         journal.DisplayEntries();
 
         // Save entries to a file
