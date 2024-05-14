@@ -96,21 +96,16 @@ class Program
     {
         Journal journal = new Journal();
 
-        // Add an entry
         journal.AddEntry("Sample Prompt", "Sample Response");
 
-        // Display all entries
         Console.WriteLine("All Entries:");
         journal.DisplayEntries();
 
-        // Save entries to a file
         string filename = "journal.txt";
         journal.SaveToFile(filename);
 
-        // Load entries from the file
         journal.LoadFromFile(filename);
 
-        // Display loaded entries
         Console.WriteLine("\nLoaded Entries:");
         journal.DisplayEntries();
     }
